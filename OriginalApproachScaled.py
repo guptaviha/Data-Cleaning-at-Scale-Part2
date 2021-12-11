@@ -35,6 +35,7 @@ datecolumns_dict = {
 } 
 
 
+# Original count and sample size of each dataset using confidence level 95% and confidence interval 8
 samplesize_dict = {
     'kpav-sd4t': [2915, 143],
     'bdjm-n7q4': [825691, 150],
@@ -95,7 +96,7 @@ def cleanAndProfileColumn(datasetID, column_name, input_data):
         except:            
             pass
         if standardized:
-            # cast
+            # cast to date so that range queries can work
             input_data = castToDate(column_name, input_data)
             # filter out outliers
             input_data.createOrReplaceTempView('input_data_view')
@@ -123,18 +124,18 @@ def cleanAndProfileDataset(datasetID):
     input_data = spark.read.format('csv').options(header='true',inferschema='true').load(path)
     columns = input_data.columns
 
-    # Take subset of data to clean and find accuracy
+    # Take subset of data to clean and find accuracy by means of precision and recall
     sampleSize = samplesize_dict[datasetID][1]
     count = samplesize_dict[datasetID][0]
-
     input_data_subset = input_data.sample(fraction=1.0*sampleSize/count, seed=1)
-    
+    input_data_subset.write.save(datasetID + "Original",format="csv",header=True)
+
     for column in columns:
         input_data_subset = cleanAndProfileColumn(datasetID, column, input_data_subset)
 
     # store dataset 
     # input_data_subset.write.option("header",True).csv(datasetID + "Output")
-    input_data_subset.write.save(datasetID + "Out",format="csv")
+    input_data_subset.write.save(datasetID + "Out",format="csv",header=True)
 
 
 if __name__ == "__main__":

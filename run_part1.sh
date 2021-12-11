@@ -6,5 +6,11 @@ SPARKCODE="OriginalApproachScaled.py"
 
 for i in "${datasets[@]}"
 do
+	rm "$i"Output
+	rm "$i"Original
+	/usr/bin/hadoop fs -rm -r "$i"Out
+	/usr/bin/hadoop fs -rm -r "$i"Original
     spark-submit "$SPARKCODE" "$i"
+    /usr/bin/hadoop fs -getmerge "$i"Original "$i"Original
+    /usr/bin/hadoop fs -getmerge "$i"Out "$i"Output
 done
