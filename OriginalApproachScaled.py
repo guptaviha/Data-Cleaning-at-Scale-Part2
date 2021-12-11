@@ -34,6 +34,24 @@ datecolumns_dict = {
     'fudw-fgrp': ['date']
 } 
 
+
+samplesize_dict = {
+    'kpav-sd4t': [2915, 143],
+    'bdjm-n7q4': [825691, 150],
+    'p937-wjvj': [2018180, 150],
+    'pqg4-dm6b': [1147, 133],
+    'bquu-z2ht': [665, 123],
+    'nzjr-3966': [3023, 143],
+    '4d7f-74pe': [104316, 150],
+    'c5up-ki6j': [3406, 144],
+    'dsg6-ifza': [29953, 149],
+    '6khm-nrue': [155, 76],
+    'vz8c-29aj': [14, 13],
+    'ay9k-vznm': [197 , 85],
+    'qdq3-9eqn': [2097151, 150],
+    'fudw-fgrp': [74881, 150]
+} 
+
 def findColumnCategory(datasetID,column_name, input_data):
     if column_name.lower() in [x.lower() for x in datecolumns_dict[datasetID]]:
       return 'DATE'
@@ -105,8 +123,11 @@ def cleanAndProfileDataset(datasetID):
     input_data = spark.read.format('csv').options(header='true',inferschema='true').load(path)
     columns = input_data.columns
 
-    # Take subset of data to clean and find precision and recall
-    input_data_subset = input_data.sample(fraction=0.5, seed=3)
+    # Take subset of data to clean and find accuracy
+    sampleSize = samplesize_dict[datasetID][1]
+    count = samplesize_dict[datasetID][0]
+
+    input_data_subset = input_data.sample(fraction=1.0*sampleSize/count, seed=1)
     
     for column in columns:
         input_data_subset = cleanAndProfileColumn(datasetID, column, input_data_subset)
