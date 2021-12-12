@@ -11,6 +11,6 @@ do
 	/usr/bin/hadoop fs -rm -r "$i"Out
 	/usr/bin/hadoop fs -rm -r "$i"Original
     spark-submit "$SPARKCODE" "$i"
-    /usr/bin/hadoop fs -getmerge "$i"Original "$i"Original
-    /usr/bin/hadoop fs -getmerge "$i"Out "$i"Output
+    /usr/bin/hadoop fs -getmerge "$i"Original "$i"Original.csv
+    /usr/bin/hadoop fs -getmerge "$i"Out "$i"Output.csv
 done
