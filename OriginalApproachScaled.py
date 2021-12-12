@@ -10,13 +10,13 @@ from pyspark.sql.functions import to_date
 import datetime
 import sys
 
-# datecolumns = ['Posting Date','Post Until','Posting Updated','Process Date']
-
 spark = SparkSession \
     .builder \
     .appName("ProjectOriginalApproach") \
     .getOrCreate()
 
+# Since spark is not good with identifying date columns due to varying formats in different datasets, 
+# we are using the below dict to correctly categorize such columns in the datasets we clean
 datecolumns_dict = {
     'kpav-sd4t': ['Posting Date','Post Until','Posting Updated','Process Date'],
     'bdjm-n7q4': ['ClosedDate', 'CancelDate', 'CreatedDate', 'UpdatedDate', 'SanitationAssignedDate', 'SanitationRemovalDate', 'SanitationUpdatedDate', 'PROJSTARTDATE'],
@@ -87,7 +87,7 @@ def cleanAndProfileColumn(datasetID, column_name, input_data):
     if type == 'DATE':
         standardized = False
         input_data_temp = input_data
-        # standardize
+        # standardize date format so that we can easilycast the column to Date datatype
         try:
             input_data_temp = input_data_temp.withColumn(column_name, F.when(input_data_temp[column_name].isNull(),'UNSPECIFIED').otherwise(standardizeDate_udf(F.col(column_name))) )
             input_data_temp.select(input_data_temp[column_name]).show()
@@ -128,13 +128,14 @@ def cleanAndProfileDataset(datasetID):
     sampleSize = samplesize_dict[datasetID][1]
     count = samplesize_dict[datasetID][0]
     input_data_subset = input_data.sample(fraction=1.0*sampleSize/count, seed=1)
+
+    # Store the original sample to HDFS so that it can be used to calculate precision and recall
     input_data_subset.write.save(datasetID + "Original",format="csv",header=True)
 
     for column in columns:
         input_data_subset = cleanAndProfileColumn(datasetID, column, input_data_subset)
 
-    # store dataset 
-    # input_data_subset.write.option("header",True).csv(datasetID + "Output")
+    # store cleaned sample dataset to HDFS
     input_data_subset.write.save(datasetID + "Out",format="csv",header=True)
 
 

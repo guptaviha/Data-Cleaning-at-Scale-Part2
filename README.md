@@ -23,17 +23,21 @@ Created for CSGY 6513 Big Data Final Project Part 2.
 
 **Steps to calculate accuracy:**
 
-1. Follow steps 1 to 3 in the "Steps to Reproduce"
+1. 	Follow steps 1 to 3 in the "Steps to Reproduce"
 
-2. Copy output csv files to local machine and open in spreadsheet software of your choice.
+2. 	Copy output csv files to local machine and open in spreadsheet software of your choice.
+	You can use WinSCP or SCP command with following syntax -  `scp <netID>@<peelurl>:/file/to/send /where/to/put`
 
-3. Manually inspect and compare the Original and Output file of each dataset to calculate the effectiveness of cleaning approach.
-   Use following method to calculate precision and recall:
+3. 	Manually inspect and compare the Original and Output file of each dataset to calculate the effectiveness of cleaning approach.
+	
+	Use following method to calculate precision and recall:
+		
 		Precision = True Positive Count/True Positive Count + False Positive Count
+		
 		Recall = True Positive Count/True Positive Count + False Negative Count
 ---
 
-Team:
+**Team:**
 
 Syed Ahmad 				- st4324@nyu.edu
 

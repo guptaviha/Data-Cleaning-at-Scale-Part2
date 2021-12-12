@@ -10,13 +10,13 @@ from pyspark.sql.functions import to_date
 import datetime
 import sys
 
-# datecolumns = ['Posting Date','Post Until','Posting Updated','Process Date']
-
 spark = SparkSession \
     .builder \
-    .appName("ProjectOriginalApproach") \
+    .appName("ProjectImprovedApproach") \
     .getOrCreate()
 
+# Since spark is not good with identifying date columns due to varying formats in different datasets, 
+# we are using the below dict to correctly categorize such columns in the datasets we clean
 datecolumns_dict = {
     'kpav-sd4t': ['Posting Date','Post Until','Posting Updated','Process Date'],
     'bdjm-n7q4': ['ClosedDate', 'CancelDate', 'CreatedDate', 'UpdatedDate', 'SanitationAssignedDate', 'SanitationRemovalDate', 'SanitationUpdatedDate', 'PROJSTARTDATE'],
