@@ -6,7 +6,7 @@ Created for CSGY 6513 Big Data Final Project Part 2.
 
 **Steps to Reproduce:**
 
-1.	Login to Peel and create a new working directory and clone/copy all the project files there.
+1.	Login to Peel and create a new working directory and clone/copy all the project files there. THen navigate to *code* folder.
 
 2.	Run the script *run_part1.sh* by calling `./run_part1.sh` in the shell. This will submit spark job for each of the dataset.
 	NOTE: If facing permission denied error on running above command, run the following - `chmod 777 run_part1.sh`
