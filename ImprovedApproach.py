@@ -90,7 +90,7 @@ def cleanAndProfileColumn(datasetID, column_name, input_data):
     if type == 'DATE':
         standardized = False
         input_data_temp = input_data
-        # standardize
+        # standardize date format so that we can easilycast the column to Date datatype
         try:
             input_data_temp = input_data_temp.withColumn(column_name, F.when(input_data_temp[column_name].isNull(),'UNSPECIFIED').otherwise(standardizeDate_udf(F.col(column_name))) )
             input_data_temp.select(input_data_temp[column_name]).show()
@@ -128,18 +128,11 @@ def cleanAndProfileDataset(datasetID):
     input_data = spark.read.format('csv').options(header='true',inferschema='true').load(path)
     columns = input_data.columns
 
-    # Take subset of data to clean and find accuracy by means of precision and recall
-    sampleSize = samplesize_dict[datasetID][1]
-    count = samplesize_dict[datasetID][0]
-    input_data_subset = input_data.sample(fraction=1.0*sampleSize/count, seed=1)
-    input_data_subset.write.save(datasetID + "Original",format="csv",header=True)
-
     for column in columns:
-        input_data_subset = cleanAndProfileColumn(datasetID, column, input_data_subset)
+        input_data = cleanAndProfileColumn(datasetID, column, input_data)
 
-    # store dataset 
-    # input_data_subset.write.option("header",True).csv(datasetID + "Output")
-    input_data_subset.write.save(datasetID + "Out",format="csv",header=True)
+    # store output to HDFS
+    input_data.write.save(datasetID + "Cleaned.out",format="csv",header=True)
 
 
 if __name__ == "__main__":
