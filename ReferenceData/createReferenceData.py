@@ -29,7 +29,7 @@ def cleanReferenceDataColumn(column_name, input_data):
     # remove any trailing or leading special characters or whitespaces
     input_data = input_data.withColumn(column_name, removeSpecialChar_udf(input_data[column_name]))
     # there are entries with sentences instead of name, filter them out
-    input_data = input_data.filter(length(col(column_name)) < 25)
+    input_data = input_data.filter(length(col(column_name)) < 62)
     return input_data
 
 
