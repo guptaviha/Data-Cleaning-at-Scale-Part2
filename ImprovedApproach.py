@@ -122,18 +122,35 @@ def cleanAndProfileColumn(datasetID, column_name, input_data):
         input_data = input_data.withColumn(column_name, removeSpecialChar_udf(input_data[column_name]))
     return input_data
 
-def cleanAndProfileDataset(datasetID):
+def cleanAndProfileDataset(datasetID, testFlag):
     global spark
     path = '/user/CS-GY-6513/project_data/data-cityofnewyork-us.'+ datasetID + '.csv'
     input_data = spark.read.format('csv').options(header='true',inferschema='true').load(path)
     columns = input_data.columns
 
-    for column in columns:
-        input_data = cleanAndProfileColumn(datasetID, column, input_data)
+    # If testFlag is False, run the cleaning on entire dataset and store output in HDFS
+    # Else do cleaning on the sample, and store the results in csv to calculate precision and recall
+    if testFlag == "False":
+        for column in columns:
+            input_data = cleanAndProfileColumn(datasetID, column, input_data)
 
-    # store output to HDFS
-    input_data.write.save(datasetID + "Cleaned.out",format="csv",header=True)
+        # store output to HDFS
+        input_data.write.save(datasetID + "Cleaned.out",format="csv",header=True)
+    else:
+        # Take subset of data to clean and find accuracy by means of precision and recall
+        sampleSize = samplesize_dict[datasetID][1]
+        count = samplesize_dict[datasetID][0]
+        input_data_subset = input_data.sample(fraction=1.0*sampleSize/count, seed=1)
+
+        # Store the original sample to HDFS so that it can be used to calculate precision and recall
+        input_data_subset.write.save(datasetID + "Original",format="csv",header=True)
+
+        for column in columns:
+            input_data_subset = cleanAndProfileColumn(datasetID, column, input_data_subset)
+
+        # store cleaned sample dataset to HDFS
+        input_data_subset.write.save(datasetID + "Out",format="csv",header=True)
 
 
 if __name__ == "__main__":
-    cleanAndProfileDataset(sys.argv[1])
+    cleanAndProfileDataset(sys.argv[1], sys.argv[2])

@@ -9,6 +9,7 @@ Created for CSGY 6513 Big Data Final Project Part 2.
 1.	Login to Peel and create a new working directory and clone/copy all the project files there.
 
 2.	Run the script *run_part1.sh* by calling `./run_part1.sh` in the shell. This will submit spark job for each of the dataset.
+	NOTE: If facing permission denied error on running above command, run the following - `chmod 777 run_part1.sh`
 
 3.	Once all the spark jobs are finished, the Original and Cleaned sample of each Dataset will be available in the current working directory.
 	Named as [DatasetID]Original.csv and [DatasetID]Output.csv
@@ -17,7 +18,12 @@ Created for CSGY 6513 Big Data Final Project Part 2.
 	
 	Improvements were made on the original script based on above results, to run the improved script on all datasets following step 5: 
 
-5.	Run the script *run_part2.sh* by calling `./run_part2.sh` in the shell. This will output entire cleaned datasets to HDFS with filenames as <DatasetID>Cleaned.out 
+5.	To calculate precision and recall of improved script run command `./run_part2subset.sh` This will behave same as run_part1.sh and output both original and cleaned csv of dataset samples. Follow Step 4 to calculate precision and recall using the output.
+	NOTE: If facing permission denied error on running above command, run the following - `chmod 777 run_part2subset.sh`
+
+6.	Run the script *run_part2.sh* by calling `./run_part2.sh` in the shell. This will output entire cleaned datasets to HDFS with filenames as [DatasetID]Cleaned.out 
+	NOTE: If facing permission denied error on running above command, run the following - `chmod 777 run_part2subset.sh`
+
 
 ---
 

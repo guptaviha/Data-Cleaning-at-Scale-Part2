@@ -6,6 +6,11 @@ SPARKCODE="ImprovedApproach.py"
 
 for i in "${datasets[@]}"
 do
-	/usr/bin/hadoop fs -rm -r "$i"Cleaned
-	spark-submit "$SPARKCODE" "$i" False
+	rm "$i"Output.csv
+	rm "$i"Original.csv
+	/usr/bin/hadoop fs -rm -r "$i"Out
+	/usr/bin/hadoop fs -rm -r "$i"Original
+    spark-submit "$SPARKCODE" "$i" True
+	/usr/bin/hadoop fs -getmerge "$i"Original "$i"Original.csv
+	/usr/bin/hadoop fs -getmerge "$i"Out "$i"Output.csv
 done
