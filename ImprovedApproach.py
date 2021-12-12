@@ -53,6 +53,7 @@ samplesize_dict = {
     'fudw-fgrp': [74881, 150]
 } 
 
+# finds the Category of the column so that corresponding cleaning methods can be applied on it downstream
 def findColumnCategory(datasetID,column_name, input_data):
     if column_name.lower() in [x.lower() for x in datecolumns_dict[datasetID]]:
       return 'DATE'
@@ -63,6 +64,7 @@ def findColumnCategory(datasetID,column_name, input_data):
     elif 'title' in column_name.lower():
       return 'TITLE'
 
+# This function casts the given column in the input_data dataframe to Date datatype
 def castToDate(column_name, input_data):
     try:
         input_data = input_data.withColumn(column_name, F.to_date(F.col(column_name)))
@@ -70,12 +72,14 @@ def castToDate(column_name, input_data):
         pass
     return input_data
 
+# defining PySpark UDF to reformat date string to YYYY-MM-DD format
 def standardizeDate(x):
     d = parser.parse(x)
     return d.strftime("%Y-%m-%d")
 
 standardizeDate_udf = udf(standardizeDate, StringType())
 
+# defining PySpark UDF to clean leading and trailing special characters from strings
 def removeSpecialChar(x):
     x = x.strip("#?*- ")
     if x.endswith('('):
