@@ -42,7 +42,7 @@ if __name__ == "__main__":
             input_data = cleanReferenceDataColumn(column, input_data)
 
     # select only the Organization name column to output
-    input_data.select([col("OrganizationName").alias("Name")]).repartition(1).write.csv("NGONameReferenceDataset.csv",header=True)
+    input_data.select([col("OrganizationName").alias("Name")]).repartition(1).write.csv("NonprofitNameReferenceDataset.csv",header=True)
 
 
 

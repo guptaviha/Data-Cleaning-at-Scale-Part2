@@ -48,14 +48,14 @@ Created for CSGY 6513 Big Data Final Project Part 2.
 
 **Reference Data creation**
 
-The folder *Reference Data* contains Refrence data for NGO names in NYC as well as PySpark script to create the same.
-Steps to create the same:
+The folder *Reference Data* contains Refrence data for Nonprofit names in NYC as well as PySpark script to create the same.
+Steps to create:
 
 1.	Goto *ReferenceData* directory in Peel
 
 2.	Run `spark-submit createReferenceData.py`
 
-3. 	Download result by running `hfs -getmerge NGONameReferenceDataset.csv NGONameReferenceDataset.csv`
+3. 	Download result by running `hfs -getmerge NonprofitNameReferenceDataset.csv NonprofitNameReferenceDataset.csv`
 
 
 **Team:**
