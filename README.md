@@ -2,6 +2,9 @@
 
 Created for CSGY 6513 Big Data Final Project Part 2.
 
+Part 1 of Project(Assignment 3) which contains Jupyter Notebooks for Profiling and Cleaning of NYC Citywide Payroll data can be found here:
+https://github.com/alekzanderx1/NYC-Citywide-Payroll-Data-Profiling-and-Cleaning 
+
 ---
 
 **Steps to Reproduce:**
