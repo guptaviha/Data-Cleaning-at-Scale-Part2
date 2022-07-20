@@ -2,15 +2,15 @@
 
 An academic project for Big Data (CS-GY-6513) at NYU Tandon with Prof Juliana Freire.
 
-Objective: 
+Objective: To scale profiling and cleaning techniques used from Part1 to handle a large number of files, found using [NYC Open Data](https://opendata.cityofnewyork.us/)
 
-For more details: [Prompt](https://github.com/guptaviha/NYC-Payroll-Data-Cleaning-2/blob/main/Project-Prompt.pdf) & [Report](https://github.com/guptaviha/NYC-Payroll-Data-Cleaning-2/blob/main/Project_Report.pdf)
+Part 1 of the Project which contains Jupyter Notebooks for Profiling and Cleaning of NYC Citywide Payroll data can be found [here](https://github.com/guptaviha/Data-Cleaning-NYC-Payroll-Part1)
 
-Part 1 of Project(Assignment 3) which contains Jupyter Notebooks for Profiling and Cleaning of NYC Citywide Payroll data can be found [here](https://github.com/guptaviha/NYC-Payroll-Data-Cleaning-1)
+For more details: [Prompt](https://github.com/guptaviha/Data-Cleaning-at-Scale-Part2/blob/main/Project-Prompt.pdf) & [Report](https://github.com/guptaviha/Data-Cleaning-at-Scale-Part2/blob/main/Project_Report.pdf)
 
 ---
 
-**Steps to Reproduce:**
+## Steps to Reproduce
 
 1.	Login to Peel and create a new working directory and clone/copy all the project files there. Then navigate to *code* folder.
 
@@ -36,7 +36,7 @@ Part 1 of Project(Assignment 3) which contains Jupyter Notebooks for Profiling a
 
 ---
 
-**Steps to calculate accuracy:**
+## Steps to calculate accuracy
 
 1. 	Follow steps 1 to 3 in the "Steps to Reproduce"
 
@@ -52,7 +52,7 @@ Part 1 of Project(Assignment 3) which contains Jupyter Notebooks for Profiling a
 		Recall = True Positive Count/True Positive Count + False Negative Count
 ---
 
-**Reference Data creation**
+## Reference Data creation
 
 The folder *Reference Data* contains Refrence data for Nonprofit names in NYC as well as PySpark script to create the same.
 Steps to create:
@@ -64,10 +64,10 @@ Steps to create:
 3. 	Download result by running `hfs -getmerge NonprofitNameReferenceDataset.csv NonprofitNameReferenceDataset.csv`
 
 
-**Team:**
+## Contributers:
 
-Syed Ahmad 				- st4324@nyu.edu
+Syed Ahmad - st4324@nyu.edu
 
-Suyash Soniminde		- sys8910@nyu.edu
+Suyash Soniminde - sys8910@nyu.edu
 
-Viha Gupta 				- vg2237@nyu.edu
+Viha Gupta - vg2237@nyu.edu
