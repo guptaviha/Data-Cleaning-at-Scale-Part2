@@ -1,9 +1,12 @@
-# NYC-Open-Data-Profiling-and-Cleaning
+# NYC Payroll Data Cleaning Part2
 
-Created for CSGY 6513 Big Data Final Project Part 2.
+An academic project for Big Data (CS-GY-6513) at NYU Tandon with Prof Juliana Freire.
 
-Part 1 of Project(Assignment 3) which contains Jupyter Notebooks for Profiling and Cleaning of NYC Citywide Payroll data can be found here:
-https://github.com/alekzanderx1/NYC-Citywide-Payroll-Data-Profiling-and-Cleaning 
+Objective: 
+
+For more details: [Prompt](https://github.com/guptaviha/NYC-Payroll-Data-Cleaning-2/blob/main/Project-Prompt.pdf) & [Report](https://github.com/guptaviha/NYC-Payroll-Data-Cleaning-2/blob/main/Project_Report.pdf)
+
+Part 1 of Project(Assignment 3) which contains Jupyter Notebooks for Profiling and Cleaning of NYC Citywide Payroll data can be found [here](https://github.com/guptaviha/NYC-Payroll-Data-Cleaning-1)
 
 ---
 
